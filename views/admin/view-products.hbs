@@ -16,12 +16,17 @@
             </thead>
             <tbody>
                 {{#each products}}
-                <tr>
+                <tr class="m-auto">
                     <th scope="row">1</th>
                     <td>{{name}}</td>
                     <td>{{category}}</td>
                     <td>{{description}}</td>
                     <td><img style="height: 80px; width: 80px;" src="/product-images/{{_id}}.jpg" alt=""></td>
+                    <td>
+                        <a href="" class="btn btn-outline-primary btn-rounded">Edit</a>
+                        <a href="/admin/delete-product/{{_id}}" class="btn btn-outline-danger btn-rounded"
+                            onclick="return confirm('Want to delete {{name}} ??')">Delete</a>
+                    </td>
                 </tr>
                 {{/each}}
             </tbody>
