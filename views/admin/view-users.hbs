@@ -1,0 +1,30 @@
+<section>
+    <div class="container">
+        <h3>All Users</h3>
+        <table class="table my-5">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                <tr class="m-auto">
+                    <th scope="row">1</th>
+                    <td>{{name}}</td>
+                    <td>{{email}}</td>
+                    <td>{{age}}</td>
+                    <td>
+                        <a href="/admin/edit-user/{{_id}}" class="btn btn-outline-primary btn-rounded">Edit</a>
+                        <a href="/admin/delete-user/{{_id}}" class="btn btn-outline-danger btn-rounded"
+                            onclick="return confirm('Want to delete {{name}} ??')">Delete</a>
+                    </td>
+                </tr>
+                {{/each}} 
+            </tbody>
+        </table>
+    </div>
+</section>

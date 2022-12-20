@@ -27,7 +27,7 @@
                             <!-- Name --> 
                             <div class="form-outline mb-4">
                                 <div class="form-outline">
-                                    <input type="text" name="name" id="form3Example1" class="form-control" />
+                                    <input type="text" name="name" id="form3Example1" class="form-control" required>
                                     <label class="form-label" for="form3Example1">Name</label>
                                 </div>
                             </div>
@@ -35,13 +35,19 @@
 
                             <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <input type="email" name="email" id="form3Example3" class="form-control" />
+                                <input type="email" name="email" id="form3Example3" class="form-control" required>
                                 <label class="form-label" for="form3Example3">Email address</label>
+                            </div>
+
+                            {{!-- Age iput --}}
+                            <div class="form-outline mb-4">
+                                <input type="number" name="age" id="form3Example3" class="form-control" required>
+                                <label class="form-label" for="form3Example3">Age</label>
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-4">
-                                <input type="password" name="password" id="form3Example4" class="form-control" />
+                                <input type="password" name="password" id="form3Example4" class="form-control" required>
                                 <label class="form-label" for="form3Example4">Password</label>
                             </div>
                             <!-- Submit button -->

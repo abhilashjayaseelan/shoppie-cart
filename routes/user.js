@@ -5,7 +5,7 @@ const userHelpers = require('../helpers/user-helpers');
 
 // for checking user login 
 const loginCheck = function(req, res, next){
-    if(req.session.user){
+    if(req.session.user.loggedIn){
         next();
     }else{
         res.redirect('/login');
@@ -18,13 +18,13 @@ router.get('/', function(req, res, next) {
         res.render('user/view-products', { products, admin:false, user });
     })
 });
-
+ 
 router.get('/login', function(req, res){
-    if(req.session.loggedIn){
+    if(req.session.user){
         res.redirect('/');
     }else{
-        res.render('user/login', {'loginErr': req.session.loginErr});
-        req.session.loginErr = false;
+        res.render('user/login', {'loginErr': req.session.userloginErr});
+        req.session.userloginErr = false;
     }
 })
 
@@ -34,7 +34,7 @@ router.get('/signup', function(req, res){
 
 router.post('/signup', (req, res) =>{
     userHelpers.doSignup(req.body).then((response)=>{
-        
+      res.redirect('/login')  
     })
 })
 
@@ -42,11 +42,11 @@ router.post('/signup', (req, res) =>{
 router.post('/login', (req, res)=>{
     userHelpers.doLogin(req.body).then((reponse) =>{
         if(reponse.status){
-            req.session.loggedIn = true;
             req.session.user = reponse.user;
+            req.session.user.loggedIn = true;
             res.redirect('/');
         }else{
-            req.session.loginErr = "Invalid user name or password";
+            req.session.userloginErr = "Invalid user name or password";
             res.redirect('/login');
         }
     })
@@ -54,7 +54,7 @@ router.post('/login', (req, res)=>{
 
 // user logout
 router.get('/logout', (req, res)=>{
-    req.session.destroy();
+    req.session.user = null;
     res.redirect('/');
 })
 

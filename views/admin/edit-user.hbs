@@ -1,0 +1,38 @@
+<!-- Section: Design Block -->
+<section>
+    <div class="container py-4">
+        <div class="row g-0 align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="card cascading-right">
+                    <div class="card-body p-5 shadow-5 text-center">
+                        <h2 class="fw-bold mb-5">User Details</h2>
+                        <form action="/admin/edit-user/{{user._id}}" method="post">
+                            <!-- Name --> 
+                            <div class="form-outline mb-4">
+                                <div class="form-outline">
+                                    <label>Name</label>
+                                    <input type="text" name="name" id="form3Example1" value="{{user.name}}" class="form-control" required>
+                                </div>
+                            </div>
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form3Example3">Email address</label>
+                                <input type="email" name="email" id="form3Example3" value="{{user.email}}" class="form-control" required>
+                            </div>
+
+                            {{!-- Age iput --}}
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form3Example3">Age</label>
+                                <input type="number" name="age" id="form3Example3" value="{{user.age}}" class="form-control" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block mb-4">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

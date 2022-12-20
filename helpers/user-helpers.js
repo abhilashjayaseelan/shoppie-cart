@@ -1,6 +1,8 @@
 var db = require('../config/connection');
 var collection = require('../config/collections');
 const bcrypt = require('bcrypt');
+const { ObjectID } = require('bson');
+const { USER_COLLECTION } = require('../config/collections');
 
 module.exports =  {
     doSignup : (userData)=>{
@@ -35,5 +37,40 @@ module.exports =  {
                 resolve({status:false});
             }
         })
-    }
+    },
+    getAllUsers: ()=>{
+        return new Promise((resolve, reject)=>{
+            let users = db.get().collection(collection.USER_COLLECTION).find().toArray()
+            resolve(users);
+        })
+    },
+    deleteUser: (userId)=>{ 
+        return new Promise((resolve, reject)=>{
+            db.get().collection(collection.USER_COLLECTION).deleteOne({_id:ObjectID(userId)}).then((response)=>{
+                resolve(response)
+            })
+        })
+    },
+    updateUser: (userId, userData)=>{
+        return new Promise((resolve, reject) =>{
+            db.get().collection(collection.USER_COLLECTION)
+            .updateOne({_id:ObjectID(userId)}, {
+                $set:{
+                    name: userData.name,
+                    email: userData.email,
+                    age : userData.age
+                }
+            }).then((response)=>{
+                resolve(response);
+            })
+        })
+    },
+    getUserDetail: (userId)=>{
+        return new Promise((resolve, reject)=>{
+            db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectID(userId)}).then((user)=>{
+                resolve(user);
+            })
+        })
+    },
+
 }
