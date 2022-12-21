@@ -33,8 +33,15 @@ router.get('/signup', function(req, res){
 })
 
 router.post('/signup', (req, res) =>{
-    userHelpers.doSignup(req.body).then((response)=>{
-      res.redirect('/login')  
+    userHelpers.emailCheck(req.body).then((email)=>{
+        if(email!== null){
+            req.session.existErr = "Email already exist!!!! try new one"
+            res.render('user/signup', {"existErr": req.session.existErr});
+        }else{
+            userHelpers.doSignup(req.body).then((response)=>{
+                res.redirect('/login')  
+            })
+        }
     })
 })
 

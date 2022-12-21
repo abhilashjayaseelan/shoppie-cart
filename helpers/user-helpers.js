@@ -14,6 +14,13 @@ module.exports =  {
             })
         })
     },
+    emailCheck :(userData)=>{
+        return new Promise(async(resolve, reject)=>{
+            let email = await db.get().collection(collection.USER_COLLECTION).findOne({email: userData.email})
+            resolve(email);
+            
+        })
+    },
     doLogin : (userData) =>{
         return new Promise(async(resolve, reject)=>{
             let loginStatus = false;
