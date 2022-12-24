@@ -18,7 +18,8 @@ router.get('/', function(req, res, next) {
         res.render('user/view-products', { products, admin:false, user });
     })
 });
- 
+
+// user login 
 router.get('/login', function(req, res){
     if(req.session.user){
         res.redirect('/');
@@ -28,6 +29,21 @@ router.get('/login', function(req, res){
     }
 })
 
+router.post('/login', (req, res)=>{
+    userHelpers.doLogin(req.body).then((reponse) =>{
+        if(reponse.status){
+            req.session.user = reponse.user;
+            req.session.user.loggedIn = true;
+            res.redirect('/');
+        }else{
+            req.session.userloginErr = "Invalid user name or password";
+            res.redirect('/login');
+        }
+    })
+})
+
+
+// user signup
 router.get('/signup', function(req, res){
     res.render('user/signup');
 })
@@ -45,19 +61,6 @@ router.post('/signup', (req, res) =>{
     })
 })
 
-// user login 
-router.post('/login', (req, res)=>{
-    userHelpers.doLogin(req.body).then((reponse) =>{
-        if(reponse.status){
-            req.session.user = reponse.user;
-            req.session.user.loggedIn = true;
-            res.redirect('/');
-        }else{
-            req.session.userloginErr = "Invalid user name or password";
-            res.redirect('/login');
-        }
-    })
-})
 
 // user logout
 router.get('/logout', (req, res)=>{
